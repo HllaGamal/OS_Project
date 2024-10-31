@@ -1,0 +1,41 @@
+
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class CommandsImpTest {
+
+    @Test
+    public void testLs() {
+        CLI cli = new CLI();
+        String output = cli.ls();
+        assertNotNull("ls should return non-null output", output);
+
+    }
+
+
+    @Test
+    public void testLs_a() {
+        CLI cli = new CLI();
+        String output = cli.ls_a();
+        assertTrue("ls -a should list all files including hidden", output.contains("."));
+    }
+
+    @Test
+    public void testLs_r() {
+        CLI cli = new CLI();
+        String output = cli.ls_r();
+        // Validate output format and order
+        assertNotNull("ls -r should return non-null output", output);
+    }
+
+    @Test
+    public void testMkdir() {
+        CLI cli = new CLI();
+        String newDirName = "testDir";
+        boolean created = cli.mkdir(newDirName);
+        assertTrue("mkdir should return true if the directory is created", created);
+        // Clean up after test
+        new File(cli.currentPath + "/" + newDirName).delete();
+    }
+}
