@@ -1,0 +1,52 @@
+
+
+public class CommandsImp {
+    public String ls() {
+        File directory = new File(currentPath);
+        StringBuilder output = new StringBuilder();
+        for (String file : directory.list()) {
+            if (!file.startsWith(".")) { // Exclude hidden files for normal `ls`
+                output.append(file).append("\n");
+            }
+        }
+        System.out.print(output.toString());
+        return output.toString();
+    }
+
+    public String ls_a() {
+        File directory = new File(currentPath);
+        StringBuilder output = new StringBuilder();
+        for (String file : directory.list()) {
+            output.append(file).append("\n"); // Includes hidden files
+        }
+        System.out.print(output.toString());
+        return output.toString();
+    }
+
+    public String ls_r() {
+        File directory = new File(currentPath);
+        StringBuilder output = new StringBuilder();
+        String[] files = directory.list();
+        Arrays.sort(files, Collections.reverseOrder()); // Reverse order sorting
+        for (String file : files) {
+            if (!file.startsWith(".")) {
+                output.append(file).append("\n");
+            }
+        }
+        System.out.print(output.toString());
+        return output.toString();
+    }
+
+    public boolean mkdir(String dirName) {
+        File newDir = new File(currentPath + "/" + dirName);
+        if (!newDir.exists()) {
+            boolean created = newDir.mkdir();
+            System.out.println("Directory created: " + dirName);
+            return created;
+        } else {
+            System.out.println("Directory already exists.");
+            return false;
+        }
+    }
+
+}
